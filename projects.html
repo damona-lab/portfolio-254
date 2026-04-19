@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects — Damon Randa</title>
+  <meta name="description"
+    content="A showcase of full-stack engineering projects by Damon Randa — from distributed systems to polished frontends." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+       ============================================================ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="Damon Randa - Home">
+        <span class="nav-logo-name">Damon Randa</span>
+        <span class="nav-logo-title">Full Stack Developer</span>
+      </a>
+      <ul class="nav-links" role="navigation" aria-label="Main navigation">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="projects.html" class="nav-link active">Projects</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="contact.html" class="btn btn-primary" style="padding:0.55rem 1.2rem;font-size:0.75rem;">Hire Me</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+          <span class="toggle-icon">☀️</span>
+        </button>
+        <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="nav-mobile" id="mobileMenu" role="navigation" aria-label="Mobile navigation">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="projects.html" class="nav-link active">Projects</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       PAGE BANNER
+       ============================================================ -->
+  <div class="page-top">
+    <div class="page-banner">
+      <div class="container page-banner-content">
+        <span class="section-label animate-fadeup">Portfolio</span>
+        <h1 class="animate-fadeup delay-1">My Projects</h1>
+        <p class="animate-fadeup delay-2">
+          A curated selection of products, tools, and open-source work I've built — from proof-of-concepts to production
+          systems at scale.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       PROJECTS GRID
+       ============================================================ -->
+  <section class="section">
+    <div class="container">
+
+      <!-- Filter Bar -->
+      <div class="projects-filter reveal" role="group" aria-label="Filter projects by category">
+        <button class="filter-btn active" data-filter="all">All Projects</button>
+        <button class="filter-btn" data-filter="fullstack">Full Stack</button>
+        <button class="filter-btn" data-filter="backend">Backend</button>
+        <button class="filter-btn" data-filter="frontend">Frontend</button>
+        <button class="filter-btn" data-filter="opensource">Open Source</button>
+      </div>
+
+      <!-- Grid -->
+      <div class="projects-grid" id="projectsGrid">
+
+        <!-- Project 1 — Full Stack / Featured -->
+        <article class="project-card reveal" data-category="fullstack" aria-label="CloudSync Platform project">
+          <span class="project-featured-badge">Featured</span>
+          <div class="project-card-img">
+            <img src="project-cloudsync.jpg" alt="CloudSync — Distributed file synchronisation platform interface"
+              loading="lazy" />
+            <div class="project-card-overlay">
+              <a href="#" class="overlay-link" aria-label="CloudSync GitHub repository">⬡ GitHub</a>
+              <a href="https://gilded-basbousa-04f06b.netlify.app/" class="overlay-link"
+                aria-label="CloudSync live demo">↗ Live Demo</a>
+            </div>
+          </div>
+          <div class="project-card-body">
+            <p class="project-card-type">Full Stack · Distributed Systems</p>
+            <h3>CloudSync Platform</h3>
+            <p>Real-time distributed file synchronisation handling 2M+ concurrent users. End-to-end encryption, conflict
+              resolution engine, multi-region replication with sub-50ms latency.</p>
+            <div class="project-card-stack">
+              <span class="tag">Go</span>
+              <span class="tag">React</span>
+              <span class="tag">Redis</span>
+              <span class="tag">AWS S3</span>
+              <span class="tag">WebSockets</span>
+              <span class="tag">Terraform</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 2 — Full Stack / Featured -->
+        <article class="project-card reveal reveal-delay-1" data-category="fullstack"
+          aria-label="Nexus Analytics project">
+          <span class="project-featured-badge">Featured</span>
+          <div class="project-card-img">
+            <img src="project-nexus.jpg" alt="Nexus Analytics — Developer analytics dashboard with real-time charts"
+              loading="lazy" />
+            <div class="project-card-overlay">
+              <a href="#" class="overlay-link" aria-label="Nexus Analytics GitHub repository">⬡ GitHub</a>
+              <a href="#" class="overlay-link" aria-label="Nexus Analytics live demo">↗ Demo</a>
+            </div>
+          </div>
+          <div class="project-card-body">
+            <p class="project-card-type">Full Stack · Analytics</p>
+            <h3>Nexus Analytics</h3>
+            <p>Full-stack analytics platform ingesting 500K+ events/day. Real-time dashboards, a drag-and-drop query
+              builder, and automated ML-powered anomaly detection.</p>
+            <div class="project-card-stack">
+              <span class="tag">Next.js</span>
+              <span class="tag">Python</span>
+              <span class="tag">ClickHouse</span>
+              <span class="tag">Kafka</span>
+              <span class="tag">D3.js</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 3 — Backend -->
+        <article class="project-card reveal reveal-delay-2" data-category="backend"
+          aria-label="Forge API Gateway project">
+          <div class="project-card-img">
+            <img src="project-forge.jpg" alt="Forge API Gateway — High-performance reverse proxy and API gateway"
+              loading="lazy" />
+            <div class="project-card-overlay">
+              <a href="#" class="overlay-link" aria-label="Forge API Gateway GitHub repository">⬡ GitHub</a>
+              <a href="#" class="overlay-link" aria-label="Forge API Gateway documentation">↗ Docs</a>
+            </div>
+          </div>
+          <div class="project-card-body">
+            <p class="project-card-type">Backend · Infrastructure</p>
+            <h3>Forge API Gateway</h3>
+            <p>A high-performance API gateway with built-in rate limiting, JWT authentication, request transformation,
+              and circuit breaker patterns. Handles 1M req/s on commodity hardware.</p>
+            <div class="project-card-stack">
+              <span class="tag">Go</span>
+              <span class="tag">Redis</span>
+              <span class="tag">gRPC</span>
+              <span class="tag">Prometheus</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 4 — Frontend -->
+        <article class="project-card reveal" data-category="frontend" aria-label="Prism Design System project">
+          <div class="project-card-img">
+            <img src="project-prism.jpg" alt="Prism Design System — Component library and documentation site"
+              loading="lazy" />
+            <div class="project-card-overlay">
+              <a href="#" class="overlay-link" aria-label="Prism Design System GitHub">⬡ GitHub</a>
+              <a href="#" class="overlay-link" aria-label="Prism Design System Storybook">↗ Storybook</a>
+            </div>
+          </div>
+          <div class="project-card-body">
+            <p class="project-card-type">Frontend · Design Systems</p>
+            <h3>Prism Design System</h3>
+            <p>A fully accessible, themeable component library with 80+ components, design token system, and
+              comprehensive Storybook documentation. Used by 3 production products.</p>
+            <div class="project-card-stack">
+              <span class="tag">React</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">Storybook</span>
+              <span class="tag">Radix UI</span>
+              <span class="tag">CSS Variables</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 5 — Open Source -->
+        <article class="project-card reveal reveal-delay-1" data-category="opensource"
+          aria-label="Sentinel monitoring CLI project">
+          <div class="project-card-img">
+            <img src="project-sentinel.jpg" alt="Sentinel — Open-source infrastructure monitoring CLI dashboard"
+              loading="lazy" />
+            <div class="project-card-overlay">
+              <a href="#" class="overlay-link" aria-label="Sentinel GitHub repository">⬡ GitHub</a>
+              <a href="#" class="overlay-link" aria-label="Sentinel npm package">↗ npm</a>
+            </div>
+          </div>
+          <div class="project-card-body">
+            <p class="project-card-type">Open Source · DevOps</p>
+            <h3>Sentinel CLI</h3>
+            <p>Open-source terminal-based infrastructure monitoring tool. Real-time dashboards for CPU, memory, network,
+              and custom metrics. 2.4k GitHub stars.</p>
+            <div class="project-card-stack">
+              <span class="tag">Node.js</span>
+              <span class="tag">Blessed</span>
+              <span class="tag">Prometheus</span>
+              <span class="tag">CLI</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 6 — Full Stack -->
+        <article class="project-card reveal reveal-delay-2" data-category="fullstack"
+          aria-label="Kova e-commerce platform project">
+          <div class="project-card-img">
+            <img src="project-kova.jpg" alt="Kova — Modern headless e-commerce platform storefront" loading="lazy" />
+            <div class="project-card-overlay">
+              <a href="#" class="overlay-link" aria-label="Kova GitHub repository">⬡ GitHub</a>
+              <a href="#" class="overlay-link" aria-label="Kova live demo">↗ Demo</a>
+            </div>
+          </div>
+          <div class="project-card-body">
+            <p class="project-card-type">Full Stack · E-commerce</p>
+            <h3>Kova Commerce</h3>
+            <p>Headless e-commerce platform with a Next.js storefront, custom checkout engine, and an admin dashboard.
+              Processes $200K+ GMV/month. 99.98% uptime.</p>
+            <div class="project-card-stack">
+              <span class="tag">Next.js</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">Stripe</span>
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">Vercel</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 7 — Backend -->
+        <article class="project-card reveal" data-category="backend" aria-label="HyperQueue job processing project">
+          <div class="project-card-img">
+            <img src="project-queue.jpg" alt="HyperQueue — Distributed job queue and task processing system"
+              loading="lazy" />
+            <div class="project-card-overlay">
+              <a href="#" class="overlay-link" aria-label="HyperQueue GitHub repository">⬡ GitHub</a>
+              <a href="#" class="overlay-link" aria-label="HyperQueue documentation">↗ Docs</a>
+            </div>
+          </div>
+          <div class="project-card-body">
+            <p class="project-card-type">Backend · Open Source</p>
+            <h3>HyperQueue</h3>
+            <p>Distributed job queue supporting priority queues, delayed jobs, retries, and dead-letter queues. A
+              drop-in replacement for BullMQ with 10x throughput improvements.</p>
+            <div class="project-card-stack">
+              <span class="tag">Node.js</span>
+              <span class="tag">Redis</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">Docker</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 8 — Frontend -->
+        <article class="project-card reveal reveal-delay-1" data-category="frontend"
+          aria-label="Orbit dashboard template project">
+          <div class="project-card-img">
+            <img src="project-orbit.jpg" alt="Orbit Dashboard — Premium SaaS admin dashboard template" loading="lazy" />
+            <div class="project-card-overlay">
+              <a href="#" class="overlay-link" aria-label="Orbit Dashboard GitHub repository">⬡ GitHub</a>
+              <a href="#" class="overlay-link" aria-label="Orbit Dashboard live preview">↗ Preview</a>
+            </div>
+          </div>
+          <div class="project-card-body">
+            <p class="project-card-type">Frontend · Templates</p>
+            <h3>Orbit Dashboard</h3>
+            <p>Premium SaaS admin dashboard template with 40+ pages, dark/light mode, responsive layouts, and integrated
+              charting library. 1,200+ downloads on GitHub.</p>
+            <div class="project-card-stack">
+              <span class="tag">React</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">Tailwind</span>
+              <span class="tag">Recharts</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 9 — Open Source -->
+        <article class="project-card reveal reveal-delay-2" data-category="opensource"
+          aria-label="TypedEnv environment variable validator project">
+          <div class="project-card-img">
+            <img src="project-typedenv.jpg" alt="TypedEnv — TypeScript environment variable validation library"
+              loading="lazy" />
+            <div class="project-card-overlay">
+              <a href="#" class="overlay-link" aria-label="TypedEnv GitHub repository">⬡ GitHub</a>
+              <a href="#" class="overlay-link" aria-label="TypedEnv npm package">↗ npm</a>
+            </div>
+          </div>
+          <div class="project-card-body">
+            <p class="project-card-type">Open Source · Tooling</p>
+            <h3>TypedEnv</h3>
+            <p>Zero-dependency TypeScript library for parsing and validating environment variables with full type
+              inference. Makes misconfigured deployments a thing of the past. 8k weekly downloads.</p>
+            <div class="project-card-stack">
+              <span class="tag">TypeScript</span>
+              <span class="tag">Zod</span>
+              <span class="tag">Node.js</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer" aria-label="Site footer">
+    <div class="container">
+      <div class="footer-inner">
+
+        <!-- Brand -->
+        <div class="footer-brand">
+          <div class="nav-logo-name"
+            style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--text-primary);margin-bottom:.3rem;">
+            Damon Randa</div>
+          <p class="footer-tagline">Engineering elegant solutions to hard problems.</p>
+        </div>
+
+        <!-- Social Links -->
+        <div class="footer-social" aria-label="Social media links">
+          <a href="#" class="footer-social-link" aria-label="GitHub profile" title="GitHub">
+            <!-- GitHub icon (SVG inline) -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+            </svg>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="LinkedIn profile" title="LinkedIn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            </svg>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="Twitter/X profile" title="Twitter">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-copy">
+          <span>© <span id="footerYear">2024</span> Damon Randa</span><br />
+          <span>All rights reserved.</span>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       JAVASCRIPT
+       ============================================================ -->
+  <script>
+    // ─── Theme ──────────────────────────────────────────────────
+    const html = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    const toggleIcon = themeToggle.querySelector('.toggle-icon');
+    function setTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('portfolio-theme', theme);
+      toggleIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+    }
+    setTheme(localStorage.getItem('portfolio-theme') || 'dark');
+    themeToggle.addEventListener('click', () => {
+      setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+
+    // ─── Navbar scroll ──────────────────────────────────────────
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // ─── Mobile Menu ────────────────────────────────────────────
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+
+    // ─── Project Filter ─────────────────────────────────────────
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Update active button
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.getAttribute('data-filter');
+
+        projectCards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          const match = filter === 'all' || category === filter;
+
+          // Animate in/out
+          if (match) {
+            card.style.display = '';
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = '';
+            }, 10);
+          } else {
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.95)';
+            setTimeout(() => { card.style.display = 'none'; }, 300);
+          }
+        });
+      });
+    });
+
+    // ─── Scroll Reveal ──────────────────────────────────────────
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ─── Footer Year ────────────────────────────────────────────
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
+  </script>
+
+</body>
+
+</html>
