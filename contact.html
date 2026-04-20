@@ -91,7 +91,7 @@
             <div class="contact-info-icon" aria-hidden="true">📞</div>
             <div>
               <p class="contact-info-label">Phone</p>
-              <a href="tel:+254700000000" class="contact-info-value">+254 700 000 000</a>
+              <a href="tel:+254768893015" class="contact-info-value">+254 768 893 015</a>
             </div>
           </div>
 
@@ -148,7 +148,7 @@
 
 
           <div class="map-placeholder" role="img" aria-label="Map showing Nairobi, Kenya">
-            <img src="map-placeholder.jpg" alt="Map of Nairobi, Kenya — damon randa location"
+            <img src="images/map-placeholder.jpg" alt="Map of Nairobi, Kenya — damon randa location"
               style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" />
             <div
               style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--accent-glow);backdrop-filter:blur(2px);">
@@ -245,6 +245,7 @@
 
       </div>
     </div>
+
   </section>
 
   <!-- ============================================================
@@ -477,6 +478,51 @@
 
     // ─── Footer Year ────────────────────────────────────────────
     document.getElementById('footerYear').textContent = new Date().getFullYear();
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function () {
+      emailjs.init("9XqvLd54f4Cx05Voj"); // replace with your EmailJS public key
+    })();
+  </script>
+
+
+  <script>
+    const form = document.getElementById("contactForm");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // Show loading
+      document.getElementById("submitText").innerText = "Sending...";
+      document.getElementById("submitSpinner").style.display = "inline-block";
+
+      // Collect form data
+      const formData = {
+        first_name: document.getElementById("firstName").value,
+        last_name: document.getElementById("lastName").value,
+        email: document.getElementById("email").value,
+        subject: document.getElementById("subject").value,
+        message: document.getElementById("message").value
+      };
+
+      // Send email
+      emailjs.send("9XqvLd54f4Cx05Voj", "template_qqaunic", formData)
+        .then(function (response) {
+          alert("Message sent successfully!");
+          form.reset();
+
+          document.getElementById("charCount").innerText = "0 / 1000";
+        }, function (error) {
+          alert("Failed to send message. Try again.");
+          console.error(error);
+        })
+        .finally(() => {
+          document.getElementById("submitText").innerText = "Send Message";
+          document.getElementById("submitSpinner").style.display = "none";
+        });
+    });
   </script>
 
 </body>
