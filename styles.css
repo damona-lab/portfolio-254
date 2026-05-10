@@ -881,7 +881,14 @@ body::before {
   border-top: 1px solid var(--border);
 }
 
-.stat-item {}
+.stat-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  flex: 1;
+  text-align: center;
+}
 
 .stat-num {
   font-family: var(--font-display);
