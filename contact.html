@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 
 <head>
   <meta charset="UTF-8" />
@@ -331,7 +331,7 @@
       localStorage.setItem('portfolio-theme', theme);
       toggleIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
     }
-    setTheme(localStorage.getItem('portfolio-theme') || 'dark');
+    setTheme(localStorage.getItem('portfolio-theme') || 'light');
     themeToggle.addEventListener('click', () => {
       setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
     });

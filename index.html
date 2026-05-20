@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 
 <head>
   <meta charset="UTF-8" />
@@ -74,7 +74,7 @@
 
         <p class="hero-desc animate-fadeup delay-3">
           I design and develop end-to-end digital products — from robust APIs and
-          distributed backends to pixel-perfect, performant frontends. 7+ years of
+          distributed backends to pixel-perfect, performant frontends. 4+ years of
           turning complex problems into elegant, scalable solutions.
         </p>
 
@@ -342,8 +342,8 @@
       toggleIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
     }
 
-    // Init from localStorage, default dark
-    const savedTheme = localStorage.getItem('portfolio-theme') || 'dark';
+    // Init from localStorage, default light
+    const savedTheme = localStorage.getItem('portfolio-theme') || 'light';
     setTheme(savedTheme);
 
     themeToggle.addEventListener('click', () => {

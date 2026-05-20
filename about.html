@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 
 <head>
   <meta charset="UTF-8" />
@@ -384,7 +384,7 @@
                 <div>
                   <p class="edu-degree">certified Full Stack Developer</p>
                   <p class="edu-school">Codesignal academy</p>
-                   </p>
+                  </p>
                   <p class="edu-year">Professional Level · 2025</p>
                 </div>
               </div>
@@ -489,7 +489,7 @@
       localStorage.setItem('portfolio-theme', theme);
       toggleIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
     }
-    setTheme(localStorage.getItem('portfolio-theme') || 'dark');
+    setTheme(localStorage.getItem('portfolio-theme') || 'light');
     themeToggle.addEventListener('click', () => {
       setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
     });

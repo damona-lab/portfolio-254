@@ -390,23 +390,30 @@ body::before {
   display: none;
   position: absolute;
   top: 100%;
-  left: 0;
+  left: 70%;
   right: 0;
   background: var(--bg-nav);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
-  padding: 1.5rem 2rem;
+  padding: 2rem;
   flex-direction: column;
   gap: 0.5rem;
 }
 
 .nav-mobile.open {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0.75rem 1rem;
+  gap: 0.25rem;
+  justify-content: center;
 }
 
 .nav-mobile .nav-link {
-  padding: 0.75rem 1rem;
-  font-size: 0.9rem;
+  padding: 0.5rem;
+  font-size: 0.75rem;
+  flex: 1 1 40%;
+  text-align: center;
 }
 
 /* ============================================================
@@ -572,18 +579,6 @@ body::before {
   padding-top: 72px;
   position: relative;
   overflow: hidden;
-}
-
-/* Decorative background grid */
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 48px 48px;
-  opacity: 0.5;
 }
 
 /* Gradient fade */
@@ -1456,17 +1451,6 @@ body::before {
   border-bottom: 1px solid var(--border);
 }
 
-.page-banner::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 48px 48px;
-  opacity: 0.4;
-}
-
 .page-banner::after {
   content: '';
   position: absolute;
@@ -1609,8 +1593,13 @@ body::before {
   }
 
   .nav-links,
-  .nav-right .theme-toggle {
+  .nav-links {
     display: none;
+  }
+
+  .nav-right .theme-toggle {
+    display: flex;
+    /* Ensure theme toggle is visible on small screens */
   }
 
   .nav-hamburger {
