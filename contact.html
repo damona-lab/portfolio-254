@@ -450,19 +450,35 @@
         return;
       }
 
-      // Simulate async send
+      // Real API call to backend
       submitBtn.disabled = true;
       submitText.textContent = 'Sending…';
       submitSpin.style.display = 'inline';
 
-      setTimeout(() => {
-        // Show success
-        form.style.display = 'none';
-        success.style.display = 'block';
-        submitBtn.disabled = false;
-        submitText.textContent = 'Send Message';
-        submitSpin.style.display = 'none';
-      }, 1800);
+      const formData = {
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        email: document.getElementById('email').value,
+        subject: document.getElementById('subject').value,
+        message: document.getElementById('message').value
+      };
+
+      fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+        .then(res => res.ok ? res : Promise.reject(res))
+        .then(() => {
+          form.style.display = 'none';
+          success.style.display = 'block';
+        })
+        .catch(() => alert('Failed to send message. Please ensure the server is running.'))
+        .finally(() => {
+          submitBtn.disabled = false;
+          submitText.textContent = 'Send Message';
+          submitSpin.style.display = 'none';
+        });
     });
 
     // Send another message
