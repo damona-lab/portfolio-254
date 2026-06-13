@@ -450,11 +450,7 @@
         return;
       }
 
-      // Real API call to backend
-      submitBtn.disabled = true;
-      submitText.textContent = 'Sending…';
-      submitSpin.style.display = 'inline';
-
+      // Use mailto for static site — opens user's email client
       const formData = {
         firstName: document.getElementById('firstName').value,
         lastName: document.getElementById('lastName').value,
@@ -463,33 +459,28 @@
         message: document.getElementById('message').value
       };
 
-      fetch('http://localhost:5000/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      })
-        .then(res => res.ok ? res : Promise.reject(res))
-        .then(() => {
-          form.style.display = 'none';
-          success.style.display = 'block';
-        })
-        .catch(() => alert('Failed to send message. Please ensure the server is running.'))
-        .finally(() => {
-          submitBtn.disabled = false;
-          submitText.textContent = 'Send Message';
-          submitSpin.style.display = 'none';
-        });
+      const mailBody = encodeURIComponent(
+        `Hi Damon,\n\nFrom: ${formData.firstName} ${formData.lastName} <${formData.email}>\n\n${formData.subject ? 'Subject: ' + formData.subject + '\n\n' : ''}Message:\n${formData.message}`
+      );
+
+      window.location.href = `mailto:hello@damonranda.dev?subject=${encodeURIComponent(formData.subject || 'Contact Form Submission')}&body=${mailBody}`;
+
+      formResetAndSuccess();
     });
+
+    function formResetAndSuccess() {
+      form.reset();
+      charCount.textContent = '0 / 1000';
+      form.style.display = 'none';
+      success.style.display = 'block';
+      submitBtn.disabled = false;
+      submitText.textContent = 'Send Message';
+      submitSpin.style.display = 'none';
+    }
 
     // Send another message
     document.getElementById('sendAnother').addEventListener('click', () => {
-      form.reset();
-      charCount.textContent = '0 / 1000';
-      form.style.display = '';
-      success.style.display = 'none';
-      // Clear all error states
-      form.querySelectorAll('.form-input, .form-textarea').forEach(el => el.classList.remove('error'));
-      form.querySelectorAll('.form-error-msg').forEach(el => el.textContent = '');
+      formResetAndSuccess();
     });
 
     // ─── Footer Year ────────────────────────────────────────────
