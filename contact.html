@@ -8,6 +8,8 @@
   <meta name="description"
     content="Get in touch with Damon Randa — open to senior engineering roles, consulting, and collaboration." />
   <link rel="stylesheet" href="styles.css" />
+  <!-- EmailJS SDK for Gmail integration -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 
 <body>
@@ -229,6 +231,7 @@
                 <span id="submitText">Send Message</span>
                 <span id="submitSpinner" style="display:none;" aria-hidden="true">⟳</span>
               </button>
+              <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
 
             </form>
 
@@ -329,6 +332,10 @@
     function setTheme(theme) {
       html.setAttribute('data-theme', theme);
       localStorage.setItem('portfolio-theme', theme);
+      // Initialize EmailJS with your Public Key
+      if (typeof emailjs !== 'undefined') {
+        emailjs.init({ publicKey: "YOUR_PUBLIC_KEY" });
+      }
       toggleIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
     }
     setTheme(localStorage.getItem('portfolio-theme') || 'light');
@@ -379,6 +386,24 @@
     const submitBtn = document.getElementById('submitBtn');
     const submitText = document.getElementById('submitText');
     const submitSpin = document.getElementById('submitSpinner');
+    const formStatus = document.getElementById('formStatus');
+
+    function setFormStatus(message, type = '') {
+      formStatus.textContent = message;
+      formStatus.className = type ? `form-status ${type}` : 'form-status';
+    }
+
+    function clearFormStatus() {
+      setFormStatus('');
+    }
+
+    function resetFieldErrors() {
+      ['firstName', 'lastName', 'email', 'message'].forEach(id => {
+        const input = document.getElementById(id);
+        const errorEl = document.getElementById(id + 'Error');
+        showError(input, errorEl, '');
+      });
+    }
 
     // Validate a single field, return error string or ''
     function validateField(id, value) {
@@ -428,8 +453,9 @@
     });
 
     // Form submit
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      clearFormStatus();
 
       // Validate all required fields
       const fields = ['firstName', 'lastName', 'email', 'message'];
@@ -450,27 +476,48 @@
         return;
       }
 
-      // Use mailto for static site — opens user's email client
       const formData = {
-        firstName: document.getElementById('firstName').value,
-        lastName: document.getElementById('lastName').value,
-        email: document.getElementById('email').value,
-        subject: document.getElementById('subject').value,
-        message: document.getElementById('message').value
+        firstName: document.getElementById('firstName').value.trim(),
+        lastName: document.getElementById('lastName').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        subject: document.getElementById('subject').value.trim(),
+        message: document.getElementById('message').value.trim()
       };
 
-      const mailBody = encodeURIComponent(
-        `Hi Damon,\n\nFrom: ${formData.firstName} ${formData.lastName} <${formData.email}>\n\n${formData.subject ? 'Subject: ' + formData.subject + '\n\n' : ''}Message:\n${formData.message}`
-      );
+      submitBtn.disabled = true;
+      submitText.textContent = 'Sending...';
+      submitSpin.style.display = 'inline';
+      setFormStatus('Sending your message...', '');
 
-      window.location.href = `mailto:hello@damonranda.dev?subject=${encodeURIComponent(formData.subject || 'Contact Form Submission')}&body=${mailBody}`;
+      // Map your form fields to your EmailJS template variables
+      const templateParams = {
+        from_name: `${formData.firstName} ${formData.lastName}`,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message
+      };
 
-      formResetAndSuccess();
+      try {
+        const response = await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams);
+
+        if (response.status !== 200) {
+          throw new Error('Message could not be sent. Please try again.');
+        }
+
+        formResetAndSuccess();
+      } catch (error) {
+        setFormStatus(error.message, 'error');
+        submitBtn.disabled = false;
+        submitText.textContent = 'Send Message';
+        submitSpin.style.display = 'none';
+      }
     });
 
     function formResetAndSuccess() {
       form.reset();
       charCount.textContent = '0 / 1000';
+      resetFieldErrors();
+      clearFormStatus();
       form.style.display = 'none';
       success.style.display = 'block';
       submitBtn.disabled = false;
@@ -478,10 +525,21 @@
       submitSpin.style.display = 'none';
     }
 
+    function showForm() {
+      form.reset();
+      charCount.textContent = '0 / 1000';
+      resetFieldErrors();
+      clearFormStatus();
+      form.style.display = 'block';
+      success.style.display = 'none';
+      submitBtn.disabled = false;
+      submitText.textContent = 'Send Message';
+      submitSpin.style.display = 'none';
+      document.getElementById('firstName').focus();
+    }
+
     // Send another message
-    document.getElementById('sendAnother').addEventListener('click', () => {
-      formResetAndSuccess();
-    });
+    document.getElementById('sendAnother').addEventListener('click', showForm);
 
     // ─── Footer Year ────────────────────────────────────────────
     document.getElementById('footerYear').textContent = new Date().getFullYear();

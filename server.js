@@ -2,11 +2,13 @@ const express = require('express');
 const path = require('path');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 const EMAIL_USER = process.env.EMAIL_USER;
 const EMAIL_PASS = process.env.EMAIL_PASS;
+const EMAIL_TO = process.env.EMAIL_TO || EMAIL_USER;
 
 // Middleware
 app.use(cors());
@@ -32,17 +34,29 @@ function getTransporter() {
 
 // Contact Form Route
 app.post('/api/contact', (req, res) => {
-    const { firstName, lastName, email, subject, message } = req.body;
+    const firstName = String(req.body.firstName || '').trim();
+    const lastName = String(req.body.lastName || '').trim();
+    const email = String(req.body.email || '').trim();
+    const subject = String(req.body.subject || '').trim();
+    const message = String(req.body.message || '').trim();
 
     if (!firstName || !lastName || !email || !message) {
         return res.status(400).json({ success: false, error: 'Missing required fields.' });
     }
 
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return res.status(400).json({ success: false, error: 'Invalid email address.' });
+    }
+
+    if (!EMAIL_USER || !EMAIL_PASS || !EMAIL_TO) {
+        return res.status(500).json({ success: false, error: 'Email environment variables are not configured.' });
+    }
+
     try {
         const transporter = getTransporter();
         const mailOptions = {
-            from: `"${firstName} ${lastName}" <${EMAIL_USER}>`,
-            to: EMAIL_USER,
+            from: `"Portfolio Website" <${EMAIL_USER}>`,
+            to: EMAIL_TO,
             replyTo: email,
             subject: `Portfolio Contact: ${subject || 'New Message'}`,
             text: `
@@ -63,6 +77,7 @@ ${message}
                 return res.status(500).json({ success: false, error: 'Failed to send email.' });
             }
 
+            console.log('Email sent:', info.messageId);
             res.status(200).json({ success: true, message: 'Email sent successfully!' });
         });
     } catch (error) {

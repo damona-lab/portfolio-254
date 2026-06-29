@@ -457,17 +457,79 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-muted);
   font-size: 1rem;
   transition: all var(--transition);
   text-decoration: none;
 }
 
 .footer-social-link:hover {
-  color: var(--accent);
   border-color: var(--accent);
   background: var(--accent-glow);
   transform: translateY(-2px);
+}
+
+.footer-social-link[aria-label="GitHub profile"] {
+  color: #181717;
+}
+
+.footer-social-link[aria-label="LinkedIn profile"] {
+  color: #0077B5;
+}
+
+.footer-social-link[aria-label="Twitter/X profile"] {
+  color: #000000;
+}
+
+.footer-social-link[aria-label="WhatsApp"] {
+  color: #25D366;
+}
+
+.footer-social-link[aria-label="Facebook"] {
+  color: #1877F2;
+}
+
+.footer-social-link[aria-label="Instagram"] {
+  color: #E4405F;
+}
+
+[data-theme="dark"] .footer-social-link[aria-label="GitHub profile"] {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .footer-social-link[aria-label="Twitter/X profile"] {
+  color: #ffffff;
+}
+
+.footer-social-link:hover[aria-label="GitHub profile"] {
+  color: #181717;
+}
+
+.footer-social-link:hover[aria-label="LinkedIn profile"] {
+  color: #0077B5;
+}
+
+.footer-social-link:hover[aria-label="Twitter/X profile"] {
+  color: #000000;
+}
+
+.footer-social-link:hover[aria-label="WhatsApp"] {
+  color: #25D366;
+}
+
+.footer-social-link:hover[aria-label="Facebook"] {
+  color: #1877F2;
+}
+
+.footer-social-link:hover[aria-label="Instagram"] {
+  color: #E4405F;
+}
+
+[data-theme="dark"] .footer-social-link:hover[aria-label="GitHub profile"] {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .footer-social-link:hover[aria-label="Twitter/X profile"] {
+  color: #ffffff;
 }
 
 .footer-copy {
@@ -1440,6 +1502,21 @@ body::before {
   padding: 1rem;
   font-size: 0.85rem;
   letter-spacing: 0.1em;
+}
+
+.form-status {
+  margin-top: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.form-status.error {
+  color: #e05c5c;
+}
+
+.form-status.success {
+  color: #22c55e;
 }
 
 .form-success {
