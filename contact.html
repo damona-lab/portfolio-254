@@ -8,8 +8,6 @@
   <meta name="description"
     content="Get in touch with Damon Randa — open to senior engineering roles, consulting, and collaboration." />
   <link rel="stylesheet" href="styles.css" />
-  <!-- EmailJS SDK for Gmail integration -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 
 <body>
@@ -85,7 +83,7 @@
             <div class="contact-info-icon" aria-hidden="true">✉️</div>
             <div>
               <p class="contact-info-label">Email</p>
-              <a href="mailto:hello@damonranda.dev" class="contact-info-value">hello@damonranda.dev</a>
+              <a href="mailto:otienodamon620@gmail.com" class="contact-info-value">otienodamon620@gmail.com</a>
             </div>
           </div>
 
@@ -332,10 +330,6 @@
     function setTheme(theme) {
       html.setAttribute('data-theme', theme);
       localStorage.setItem('portfolio-theme', theme);
-      // Initialize EmailJS with your Public Key
-      if (typeof emailjs !== 'undefined') {
-        emailjs.init({ publicKey: "YOUR_PUBLIC_KEY" });
-      }
       toggleIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
     }
     setTheme(localStorage.getItem('portfolio-theme') || 'light');
@@ -489,19 +483,19 @@
       submitSpin.style.display = 'inline';
       setFormStatus('Sending your message...', '');
 
-      // Map your form fields to your EmailJS template variables
-      const templateParams = {
-        from_name: `${formData.firstName} ${formData.lastName}`,
-        from_email: formData.email,
-        subject: formData.subject,
-        message: formData.message
-      };
-
       try {
-        const response = await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams);
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
 
-        if (response.status !== 200) {
-          throw new Error('Message could not be sent. Please try again.');
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || !result.success) {
+          throw new Error(result.error || 'Message could not be sent. Please try again.');
         }
 
         formResetAndSuccess();
