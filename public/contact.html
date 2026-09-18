@@ -404,6 +404,8 @@
     const submitText = document.getElementById('submitText');
     const submitSpin = document.getElementById('submitSpinner');
     const formStatus = document.getElementById('formStatus');
+    // Hosted Express API on Render. Change this only if the backend URL changes.
+    const API_BASE_URL = 'https://portfolio-254-4qc4.onrender.com';
 
     function setFormStatus(message, type = '') {
       formStatus.textContent = message;
@@ -507,7 +509,7 @@
       setFormStatus('Sending your message...', '');
 
       try {
-        const response = await fetch('/api/contact', {
+        const response = await fetch(`${API_BASE_URL}/api/contact`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
