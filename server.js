@@ -1,14 +1,15 @@
 const express = require('express');
 const path = require('path');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const EMAIL_USER = process.env.EMAIL_USER;
-const EMAIL_PASS = process.env.EMAIL_PASS;
 const EMAIL_TO = process.env.EMAIL_TO || 'otienodamon620@gmail.com';
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+// Replace this with an address on a verified Resend domain before deploying.
+const RESEND_FROM = process.env.RESEND_FROM || 'Portfolio Website <onboarding@resend.dev>';
 
 class AppError extends Error {
     constructor(message, statusCode = 500, errors = undefined) {
@@ -41,18 +42,12 @@ app.use(express.urlencoded({ extended: true }));
 // Serve static files from the project root
 app.use(express.static(path.join(__dirname)));
 
-function getTransporter() {
-    if (!EMAIL_USER || !EMAIL_PASS) {
+function getResendClient() {
+    if (!RESEND_API_KEY) {
         throw new AppError('Email service is not configured.', 500);
     }
 
-    return nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: EMAIL_USER,
-            pass: EMAIL_PASS
-        }
-    });
+    return new Resend(RESEND_API_KEY);
 }
 
 function validateContactPayload(body) {
@@ -86,6 +81,15 @@ function validateContactPayload(body) {
     }
 
     return { firstName, lastName, email, subject, message };
+}
+
+function escapeHtml(value) {
+    return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
 }
 
 function normalizeError(error) {
@@ -153,14 +157,14 @@ function logError(error, req) {
 app.post('/api/contact', asyncHandler(async (req, res) => {
     const { firstName, lastName, email, subject, message } = validateContactPayload(req.body);
 
-    if (!EMAIL_USER || !EMAIL_PASS || !EMAIL_TO) {
+    if (!RESEND_API_KEY || !EMAIL_TO) {
         throw new AppError('Email service is not configured.', 500);
     }
 
-    const transporter = getTransporter();
-    const mailOptions = {
-        from: `"Portfolio Website" <${EMAIL_USER}>`,
-        to: EMAIL_TO,
+    const resend = getResendClient();
+    const { data, error } = await resend.emails.send({
+        from: RESEND_FROM,
+        to: [EMAIL_TO],
         replyTo: email,
         subject: `Portfolio Contact: ${subject || 'New Message'}`,
         text: `
@@ -172,12 +176,23 @@ Subject: ${subject || 'No subject'}
 
 Message:
 ${message}
-`
-    };
+`,
+        html: `
+          <h2>New portfolio contact message</h2>
+          <p><strong>Name:</strong> ${escapeHtml(`${firstName} ${lastName}`)}</p>
+          <p><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></p>
+          <p><strong>Subject:</strong> ${escapeHtml(subject || 'No subject')}</p>
+          <p><strong>Message:</strong></p>
+          <p>${escapeHtml(message).replace(/\n/g, '<br>')}</p>
+        `
+    });
 
-    const info = await transporter.sendMail(mailOptions);
+    if (error) {
+        console.error('Resend delivery error:', error);
+        throw new AppError('Unable to send your message right now. Please try again later.', 502);
+    }
 
-    console.log('Email sent:', info.messageId);
+    console.log('Email sent:', data.id);
     res.status(200).json({ success: true, message: 'Email sent successfully!' });
 }));
 

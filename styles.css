@@ -1534,6 +1534,81 @@ body::before {
   margin-bottom: 0.5rem;
 }
 
+/* WhatsApp quick-message card */
+.whatsapp-card {
+  --whatsapp-green: #25d366;
+  margin-top: 1.25rem;
+  padding: 1.75rem;
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-primary));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+}
+
+.whatsapp-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.whatsapp-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 2.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--whatsapp-green);
+  border-radius: 50%;
+  color: var(--whatsapp-green);
+  box-shadow: 0 0 0 5px rgba(37, 211, 102, 0.16);
+}
+
+.whatsapp-icon svg {
+  width: 1.35rem;
+  height: 1.35rem;
+  fill: currentColor;
+}
+
+.whatsapp-card h3 {
+  margin-top: 0.3rem;
+  font-size: 1.1rem;
+}
+
+.whatsapp-card > p {
+  margin-bottom: 1.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.whatsapp-form .form-textarea {
+  min-height: 105px;
+}
+
+.whatsapp-error {
+  min-height: 1.1rem;
+  margin: 0.4rem 0 0;
+  color: #e05c5c;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+}
+
+.whatsapp-submit {
+  width: 100%;
+  margin-top: 1rem;
+  justify-content: center;
+  border-color: var(--whatsapp-green);
+  color: var(--whatsapp-green);
+}
+
+.whatsapp-submit:hover {
+  background: var(--whatsapp-green);
+  border-color: var(--whatsapp-green);
+  color: #fff;
+}
+
 /* ============================================================
    PAGE HEADER BANNER (inner pages)
    ============================================================ */

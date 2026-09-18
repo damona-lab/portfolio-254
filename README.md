@@ -27,3 +27,11 @@ LinkedIn:
 💡 About Me
 
 I enjoy solving real-world problems using technology and continuously improving my development skills.
+
+## Contact form email setup
+
+The contact form sends messages through Resend from the server-side `/api/contact` route.
+
+1. Create a local `.env` file from `.env.example` and set `RESEND_API_KEY`.
+2. For a deployed site, verify your domain in Resend and set `RESEND_FROM` to an address on that domain. The default Resend onboarding address is intended only for testing.
+3. Run `npm start` and submit the contact form. Messages are delivered to `EMAIL_TO` and replying to the email responds directly to the visitor.
