@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: portfolio-254
+    runtime: node
+    plan: free
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: RESEND_API_KEY
+        sync: false
+      - key: EMAIL_TO
+        sync: false
+      - key: RESEND_FROM
+        sync: false

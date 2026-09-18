@@ -5,7 +5,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = Number(process.env.PORT) || 5000;
 const EMAIL_TO = process.env.EMAIL_TO || 'otienodamon620@gmail.com';
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 // Replace this with an address on a verified Resend domain before deploying.
@@ -35,12 +35,19 @@ const asyncHandler = (handler) => (req, res, next) => {
 };
 
 // Middleware
+app.set('trust proxy', 1);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files from the project root
-app.use(express.static(path.join(__dirname)));
+// Keep browser assets separate from server code and environment configuration.
+const publicDirectory = path.join(__dirname, '..', 'public');
+app.use(express.static(publicDirectory));
+
+// Render can use this endpoint to confirm the service is available.
+app.get('/health', (req, res) => {
+    res.status(200).json({ status: 'ok' });
+});
 
 function getResendClient() {
     if (!RESEND_API_KEY) {
@@ -220,7 +227,7 @@ app.use((err, req, res, next) => {
     res.status(statusCode).json(responseBody);
 });
 
-const server = app.listen(PORT, () => {
+const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 

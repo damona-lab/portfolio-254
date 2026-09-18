@@ -2,10 +2,11 @@
   "name": "portfolio-254",
   "version": "1.0.0",
   "description": "Hi, I’m Damon Randa — a passionate full-stack web developer focused on building modern, responsive, and user-friendly web applications.",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test"
   },
   "repository": {
     "type": "git",
@@ -15,6 +16,9 @@
   "author": "",
   "license": "ISC",
   "type": "commonjs",
+  "engines": {
+    "node": ">=20"
+  },
   "bugs": {
     "url": "https://github.com/damona-lab/portfolio-254/issues"
   },

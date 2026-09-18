@@ -1,37 +1,33 @@
-Hi, I’m Damon Randa — a passionate full-stack web developer focused on building modern, responsive, and user-friendly web applications.
+# Portfolio 254
 
-🛠️ Tech Stack
-Frontend: HTML, CSS, JavaScript
-Backend: Node.js / PHP / expressJS  / RESTAPI
-Database: MySQL / MongoDB
-Tools: Git, GitHub, VS Code
-📂 Projects
+Static portfolio pages with an Express contact-form API powered by Resend.
 
-This portfolio showcases some of my best work, including:
+## Project layout
 
-E-commerce websites
-Business websites
-Automation systems
-Custom web applications
-✨ Features
-Responsive design (mobile-friendly)
-Clean and modern UI/UX
-Secure backend integration
-Functional APIs and database systems
-📸 Live Preview
+```
+public/          Browser files: HTML, CSS, and images
+src/server.js    Express server and contact-form API
+render.yaml      Render web-service configuration
+```
 
-📬 Contact Me
-Email: otienodamon620@gmail.com
-GitHub: 
-LinkedIn:
-💡 About Me
+## Run locally
 
-I enjoy solving real-world problems using technology and continuously improving my development skills.
+1. Copy `.env.example` to `.env` and add your Resend credentials.
+2. Run `npm install`.
+3. Run `npm start` (or `npm run dev` while editing).
+4. Open `http://localhost:5000`.
 
-## Contact form email setup
+The site is served by Express, and the contact form posts to `POST /api/contact`.
+`GET /health` returns a simple service-health response.
 
-The contact form sends messages through Resend from the server-side `/api/contact` route.
+## Deploy on Render
 
-1. Create a local `.env` file from `.env.example` and set `RESEND_API_KEY`.
-2. For a deployed site, verify your domain in Resend and set `RESEND_FROM` to an address on that domain. The default Resend onboarding address is intended only for testing.
-3. Run `npm start` and submit the contact form. Messages are delivered to `EMAIL_TO` and replying to the email responds directly to the visitor.
+1. Push this repository to GitHub, including `render.yaml` but never `.env`.
+2. In Render, select **New +** → **Blueprint**, then choose the repository. Render reads `render.yaml` and creates the web service.
+3. Enter these secret environment variables in Render:
+   - `RESEND_API_KEY`
+   - `EMAIL_TO`
+   - `RESEND_FROM` (an address on a domain verified in Resend)
+4. Deploy. Render runs `npm ci`, starts the app with `npm start`, and checks `/health`.
+
+The frontend and API use the same Render URL, so no frontend API URL configuration is required.
